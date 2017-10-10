@@ -1,5 +1,6 @@
 <link rel="import" href="imports.html">
 <link rel="import" href="lrndesign-mapmenu-item.html">
+<link rel="import" href="lrndesign-mapmenu-header.html">
 
 <!--
 `lrndesign-mapmenu`
@@ -14,15 +15,18 @@ A LRN element
       :host {
         display: block;
       }
+
     </style>
-    <div id="header-container">
-      <div id="header-label">[[headerLabel]]</div>
-      <div id="header-title">[[headerTitle]]</div>
-    </div>
-    <div id="menu-container">
+    <lrndesign-mapmenu-header on-click="_headerClickHandler" avatar-label="1" title="[[headerTitle]]" label="[[headerLabel]]"></lrndesign-mapmenu-header>
+    <iron-collapse id="container">
+      <lrndesign-mapmenu-header title="[[headerTitle]]" label="[[headerLabel]]"></lrndesign-mapmenu-header>
       <lrndesign-mapmenu-item title="1.1 Docker"></lrndesign-mapmenu-item>
       <lrndesign-mapmenu-item title="1.2 Docker"></lrndesign-mapmenu-item>
-    </div>
+      <lrndesign-mapmenu-header title="[[headerTitle]]" label="[[headerLabel]]"></lrndesign-mapmenu-header>
+      <lrndesign-mapmenu-item title="1.3 Docker"></lrndesign-mapmenu-item>
+      <lrndesign-mapmenu-item title="1.4 Docker"></lrndesign-mapmenu-item>
+      <lrndesign-mapmenu-item title="1.5 Docker"></lrndesign-mapmenu-item>
+    </iron-collapse>
   </template>
 
   <script>
@@ -39,8 +43,15 @@ A LRN element
           type: String,
           value: 'Containers',
         },
+        open: {
+          type: Boolean,
+          value: false
+        }
       },
-
+      _headerClickHandler: function (e) {
+        this.open = !this.open;
+        this.$.container.toggle();
+      }
     });
   </script>
 </dom-module>

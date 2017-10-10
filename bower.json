@@ -5,7 +5,9 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.9.3",
     "lrnsys-behaviors": "LRNWebComponents/lrnsys-behaviors#^1.0.0",
-    "materializecss-styles": "LRNWebComponents/materializecss-styles#^0.0.5"
+    "materializecss-styles": "LRNWebComponents/materializecss-styles#^0.0.5",
+    "lrndesign-avatar": "LRNWebComponents/lrndesign-avatar#^1.0.1",
+    "iron-collapse": "PolymerElements/iron-collapse#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
