@@ -15,17 +15,13 @@ A LRN element
       :host {
         display: block;
       }
-
+      #container {
+        padding: 1em 2em;
+      }
     </style>
     <lrndesign-mapmenu-header on-click="_headerClickHandler" avatar-label="1" title="[[headerTitle]]" label="[[headerLabel]]"></lrndesign-mapmenu-header>
     <iron-collapse id="container">
-      <lrndesign-mapmenu-header title="[[headerTitle]]" label="[[headerLabel]]"></lrndesign-mapmenu-header>
-      <lrndesign-mapmenu-item title="1.1 Docker"></lrndesign-mapmenu-item>
-      <lrndesign-mapmenu-item title="1.2 Docker"></lrndesign-mapmenu-item>
-      <lrndesign-mapmenu-header title="[[headerTitle]]" label="[[headerLabel]]"></lrndesign-mapmenu-header>
-      <lrndesign-mapmenu-item title="1.3 Docker"></lrndesign-mapmenu-item>
-      <lrndesign-mapmenu-item title="1.4 Docker"></lrndesign-mapmenu-item>
-      <lrndesign-mapmenu-item title="1.5 Docker"></lrndesign-mapmenu-item>
+      <slot></slot>
     </iron-collapse>
   </template>
 
@@ -43,14 +39,21 @@ A LRN element
           type: String,
           value: 'Containers',
         },
-        open: {
+        opened: {
           type: Boolean,
           value: false
         }
       },
+      observers: [
+        '_openChanged(opened)'
+      ],
+      _openChanged: function (opened) {
+        var target = this.$.container;
+        if (opened) target.show();
+        if (!opened) target.hide();
+      },
       _headerClickHandler: function (e) {
-        this.open = !this.open;
-        this.$.container.toggle();
+        this.opened = !this.opened;
       }
     });
   </script>
