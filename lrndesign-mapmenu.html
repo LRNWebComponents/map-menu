@@ -1,0 +1,46 @@
+<link rel="import" href="imports.html">
+<link rel="import" href="lrndesign-mapmenu-item.html">
+
+<!--
+`lrndesign-mapmenu`
+A LRN element
+
+@demo demo/index.html
+-->
+
+<dom-module id="lrndesign-mapmenu">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div id="header-container">
+      <div id="header-label">[[headerLabel]]</div>
+      <div id="header-title">[[headerTitle]]</div>
+    </div>
+    <div id="menu-container">
+      <lrndesign-mapmenu-item title="1.1 Docker"></lrndesign-mapmenu-item>
+      <lrndesign-mapmenu-item title="1.2 Docker"></lrndesign-mapmenu-item>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'lrndesign-mapmenu',
+
+      properties: {
+        headerLabel: {
+          type: String,
+          value: 'Level 1',
+        },
+        headerTitle: {
+          type: String,
+          value: 'Containers',
+        },
+      },
+
+    });
+  </script>
+</dom-module>

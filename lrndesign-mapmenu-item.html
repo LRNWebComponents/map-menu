@@ -1,0 +1,23 @@
+<dom-module id="lrndesign-mapmenu-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <li>[[title]]</li>
+  </template>
+  <script>
+    Polymer({
+      is: 'lrndesign-mapmenu-item',
+      properties: {
+        icon: {
+          type: String
+        },
+        title: {
+          type: String
+        }
+      }
+    });
+  </script>
+</dom-module>
