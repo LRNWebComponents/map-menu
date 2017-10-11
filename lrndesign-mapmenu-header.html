@@ -1,5 +1,7 @@
 <link rel="import" href="../lrndesign-avatar/lrndesign-avatar.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-behaviors/iron-button-state.html">
 
 <dom-module id="lrndesign-mapmenu-header">
   <template>
@@ -14,8 +16,8 @@
       #icon {
         margin-right: 10px;
       }
-      #right {
-        flex: 0 1 auto;
+      #center {
+        flex: 1 1 auto;
       }
       lrndesign-avatar {
         display: inline-block;
@@ -32,22 +34,34 @@
       #title {
         font-size: 1.2em;
       }
+      #right iron-icon {
+        color: gray;
+      }
     </style>
-    <div id="container" on-click="toggle" role="button" aria-pressed="false" aria-pressed="[[opened]]" tabindex="0">
+    <div id="container">
       <template is="dom-if" if="[[avatarLabel]]">
         <div id="icon">
           <lrndesign-avatar label="[[avatarLabel]]"></lrndesign-avatar>
         </div>
       </template>
-      <div id="right">
+      <div id="center">
         <div id="label">[[label]]</div>
         <div id="title">[[title]]</div>
+      </div>
+      <div id="right">
+        <template is="dom-if" if="[[!opened]]">
+          <iron-icon icon="arrow-drop-down"></iron-icon>
+        </template>
+        <template is="dom-if" if="[[opened]]">
+          <iron-icon icon="arrow-drop-up"></iron-icon>
+        </template>
       </div>
     </div>
   </template>
   <script>
     Polymer({
       is: 'lrndesign-mapmenu-header',
+      behaviors: [Polymer.IronButtonState],
       properties: {
         title: {
           type: String
@@ -61,9 +75,11 @@
         },
         opened: {
           type: Boolean
-        },
-        toggle: {
         }
+      },
+      hostAttributes: {
+        role: 'button',
+        tabindex: 0
       }
     });
   </script>
