@@ -33,7 +33,7 @@
         font-size: 1.2em;
       }
     </style>
-    <div id="container">
+    <div id="container" on-click="toggle" role="button" aria-pressed="false" aria-pressed="[[opened]]" tabindex="0">
       <template is="dom-if" if="[[avatarLabel]]">
         <div id="icon">
           <lrndesign-avatar label="[[avatarLabel]]"></lrndesign-avatar>
@@ -58,6 +58,11 @@
         avatarLabel: {
           type: String,
           value: ''
+        },
+        opened: {
+          type: Boolean
+        },
+        toggle: {
         }
       }
     });

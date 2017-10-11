@@ -1,6 +1,6 @@
 <link rel="import" href="imports.html">
 <link rel="import" href="lrndesign-mapmenu-item.html">
-<link rel="import" href="lrndesign-mapmenu-header.html">
+<link rel="import" href="lrndesign-mapmenu-submenu.html">
 
 <!--
 `lrndesign-mapmenu`
@@ -18,11 +18,11 @@ A LRN element
       #container {
         padding: 1em 2em;
       }
+      :host > ::shadow lrndesign-mapmenu-submenu + lrndesign-mapmenu-submenu {
+        margin-top: 1em;
+      }
     </style>
-    <lrndesign-mapmenu-header on-click="_headerClickHandler" avatar-label="[[avatarLabel]]" title="[[title]]" label="[[label]]"></lrndesign-mapmenu-header>
-    <iron-collapse id="container">
-      <slot></slot>
-    </iron-collapse>
+    <slot></slot>
   </template>
 
   <script>
@@ -31,30 +31,6 @@ A LRN element
       is: 'lrndesign-mapmenu',
 
       properties: {
-        label: {
-          type: String
-        },
-        title: {
-          type: String
-        },
-        avatarLabel: {
-          type: String
-        },
-        opened: {
-          type: Boolean,
-          value: false
-        }
-      },
-      observers: [
-        '_openChanged(opened)'
-      ],
-      _openChanged: function (opened) {
-        var target = this.$.container;
-        if (opened) target.show();
-        if (!opened) target.hide();
-      },
-      _headerClickHandler: function (e) {
-        this.opened = !this.opened;
       }
     });
   </script>
