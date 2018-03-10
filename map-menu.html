@@ -1,0 +1,101 @@
+<link rel="import" href="imports.html">
+<link rel="import" href="map-menu-container.html">
+<link rel="import" href="map-menu-builder.html">
+
+<dom-module id="map-menu">
+    <template>
+      <style>
+        :host {
+          display: block;
+        }
+      </style>
+      <div id="itemslist">
+        <map-menu-container>
+          <map-menu-builder items="[[items]]"></map-menu-builder>
+        </map-menu-container>
+      </div>
+    </template>
+  
+    <script>
+      Polymer({
+        is: 'map-menu',
+        
+        properties: {
+          title: {
+            type: String,
+            value: 'Content Outline',
+          },
+          data: {
+            type: Array,
+            value: null,
+          },
+          items: {
+            type: Array,
+            value: null,
+            notify: true,
+          },
+        },
+        observers: [
+          '_dataChanged(data)'
+        ],
+        /**
+         * Set data property
+         */
+        setData: function (data) {
+          this.set('data', []);
+          this.set('data', data)
+        },
+        /**
+         * Render the items into the dom
+         */
+        render: function () {
+        },
+        /**
+         * Convert data from a linear array
+         * to a nested array for template rendering
+         */
+        _dataChanged: function (data) {
+          const items = [];
+          if (!data) return;
+          // find parents
+          data.forEach(element => {
+            // find top level parents
+            if (element.parent === null) {
+              items.push(element);
+            }
+          });
+          // Recursively find and set children
+          items.forEach((item, i) => {
+            this._setChildren(item, data);
+          });
+          // Update items array
+          this.set('items', []);
+          this.set('items', items);
+        },
+        /**
+         * Recursively search through a data to find children
+         * of a specified item.
+         * @param {object} item item of an array to search on. Passed by reference.
+         * @param {array} data linear array of the data set.
+         * @return {void}
+         */
+         _setChildren: function (item, data) {
+          // find all children
+          const children = data.filter(d => item.id === d.parent);
+          item.children = children;
+          if (item.children.length > 0) {
+            item.children.forEach(child => {
+              // recursively call itself
+              this._setChildren(child, data);
+            });
+          }
+        },
+        /** 
+         * Determine if a menu item has children
+         */
+        __hasChildren: function (item) {
+          return item.children.length > 0;
+        },
+      });
+    </script>
+  </dom-module>

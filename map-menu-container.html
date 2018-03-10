@@ -1,15 +1,14 @@
-<link rel="import" href="imports.html">
-<link rel="import" href="lrndesign-mapmenu-item.html">
-<link rel="import" href="lrndesign-mapmenu-submenu.html">
+<link rel="import" href="map-menu-item.html">
+<link rel="import" href="map-menu-submenu.html">
 
 <!--
-`lrndesign-mapmenu`
+`map-menu`
 A LRN element
 
 @demo demo/index.html
 -->
 
-<dom-module id="lrndesign-mapmenu">
+<dom-module id="map-menu-container">
   <template>
     <style>
       :host {
@@ -18,7 +17,7 @@ A LRN element
       #container {
         padding: 1em 2em;
       }
-      :host > ::shadow lrndesign-mapmenu-submenu + lrndesign-mapmenu-submenu {
+      :host > ::shadow map-menu-submenu + map-menu-submenu {
         margin-top: 1em;
       }
     </style>
@@ -28,7 +27,7 @@ A LRN element
   <script>
     Polymer({
 
-      is: 'lrndesign-mapmenu',
+      is: 'map-menu-container',
 
       properties: {
       }

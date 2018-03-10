@@ -1,25 +1,28 @@
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-button/paper-button.html">
 
-<dom-module id="lrndesign-mapmenu-item">
+<dom-module id="map-menu-item">
   <template>
     <style>
       :host {
         display: block;
-        --lrndesign-mapmenu-item-height: 16px;
+        --map-menu-item-height: 16px;
       }
       iron-icon {
-        --iron-icon-height: var(--lrndesign-mapmenu-item-height);
+        --iron-icon-height: var(--map-menu-item-height);
       }
     </style>
     <template is="dom-if" if="[[icon]]">
-      <iron-icon icon="[[icon]]"></iron-icon>
+      <paper-button id="wrapper" href$="[[url]]" role="link" noink on-tap="_click">
+        <iron-icon icon="[[icon]]"></iron-icon>
+        <span id="title">[[title]]</span>
+      </paper-button>
     </template>
-    <span id="title">[[title]]</span>
   </template>
   <script>
     Polymer({
-      is: 'lrndesign-mapmenu-item',
+      is: 'map-menu-item',
       properties: {
         icon: {
           type: String,
@@ -37,6 +40,9 @@
           type: String,
           value: ''
         }
+      },
+      _click: function () {
+        window.location.assign(this.url);
       }
     });
   </script>

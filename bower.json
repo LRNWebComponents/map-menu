@@ -1,18 +1,17 @@
 {
-  "name": "lrndesign-mapmenu",
+  "name": "map-menu",
   "description": "A LRN element",
-  "main": "lrndesign-mapmenu.html",
+  "main": "map-menu.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.9.3",
-    "lrnsys-behaviors": "LRNWebComponents/lrnsys-behaviors#^1.0.0",
-    "materializecss-styles": "LRNWebComponents/materializecss-styles#^0.0.5",
+    "polymer": "Polymer/polymer#^1",
     "lrndesign-avatar": "LRNWebComponents/lrndesign-avatar#^1.0.1",
-    "iron-collapse": "PolymerElements/iron-collapse#^2.0.0"
+    "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
+    "lit-html": "Polymer/lit-html#^0.6.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7"
   }
 }

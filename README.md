@@ -2,19 +2,19 @@
 ```
 <custom-element-demo>
   <template>
-    <link rel="import" href="lrndesign-mapmenu.html">
+    <link rel="import" href="map-menu.html">
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
 ```html
-<lrndesign-mapmenu></lrndesign-mapmenu>
+<map-menu></map-menu>
 ```
 
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/lrndesign-mapmenu)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/map-menu)
 
-# \<lrndesign-mapmenu\>
+# \<map-menu\>
 
 A LRN element
 

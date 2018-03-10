@@ -1,32 +1,43 @@
-<link rel="import" href="lrndesign-mapmenu-item.html">
-<link rel="import" href="lrndesign-mapmenu-header.html">
+<link rel="import" href="map-menu-item.html">
+<link rel="import" href="map-menu-header.html">
 <link rel="import" href="../paper-button/paper-button.html">
 
-<dom-module id="lrndesign-mapmenu-submenu">
+<dom-module id="map-menu-submenu">
   <template>
     <style>
       :host {
         display: block;
       }
-      :host([collapsable]) > lrndesign-mapmenu-header {
+      :host([collapsable]) > map-menu-header {
         cursor: pointer;
         display: block;
       }
       #container {
         padding: 1em;
+        position: relative;
       }
-      #container ::slotted(lrndesign-mapmenu-item) {
+      #line {
+        display: block;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: .8em;
+        width: 1px;
+        background: rgba(0,0,0, .2);
+      }
+      #container ::slotted(map-menu-item) {
         margin-top: .4em;
       }
     </style>
-    <lrndesign-mapmenu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" title="[[title]]" label="[[label]]" opened="[[opened]]"></lrndesign-mapmenu-header>
+    <map-menu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
     <iron-collapse id="container">
+      <div id="line"></div>
       <slot id="slot"></slot>
     </iron-collapse>
   </template>
   <script>
     Polymer({
-      is: 'lrndesign-mapmenu-submenu',
+      is: 'map-menu-submenu',
       properties: {
         title: {
           type: String
@@ -66,7 +77,7 @@
       ready: function () {
         this._observer =
         Polymer.dom(this.$.slot).observeNodes(info => {
-          var submenus = info.addedNodes.filter(item => item.nodeName === 'LRNDESIGN-MAPMENU-SUBMENU');
+          var submenus = info.addedNodes.filter(item => item.nodeName === 'map-menu-SUBMENU');
           if (this.expandChildren) {
             for (let menu of submenus) {
               menu.setAttribute('opened', true);
