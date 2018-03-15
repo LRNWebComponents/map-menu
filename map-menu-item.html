@@ -45,12 +45,24 @@
           type: String,
           value: ''
         },
+        id: {
+          type: String,
+          reflectToAttribute: true,
+        },
+        active: {
+          type: Boolean,
+          value: false
+        }
       },
 
       _click: function () {
         if (this.url) {
-          this.fire('link-clicked', { url: this.url });
+          this.fire('link-clicked', { id: this.id });
         }
+      },
+
+      attached: function () {
+        this.fire('child-attached', { id: this.id });
       }
     });
   </script>

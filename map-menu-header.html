@@ -81,7 +81,6 @@
   <script>
     Polymer({
       is: 'map-menu-header',
-      behaviors: [Polymer.IronButtonState],
       properties: {
         title: {
           type: String
@@ -100,15 +99,12 @@
           type: String,
           value: ''
         },
-        active: {
-          type: Boolean,
-          value: false
-        }
+        id: {
+          type: String,
+          reflectToAttribute: true,
+        },
       },
-      hostAttributes: {
-        role: 'button',
-        tabindex: 0
-      },
+
       __titleRole: function () {
         if (this.url) {
           return 'link';
@@ -117,10 +113,15 @@
           return false;
         }
       },
+
       __linkClickHandler: function () {
-        if (this.url) {
-          this.fire('link-clicked', { url: this.url });
+        if (this.id) {
+          this.fire('link-clicked', { id: this.id });
         }
+      },
+
+      attached: function () {
+        this.fire('child-attached', { id: this.id });
       }
     });
   </script>

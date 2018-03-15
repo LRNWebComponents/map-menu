@@ -11,7 +11,7 @@
     </style>
     <div id="itemslist">
       <map-menu-container>
-        <map-menu-builder items="[[items]]"></map-menu-builder>
+        <map-menu-builder id="builder" items="[[items]]"></map-menu-builder>
       </map-menu-container>
     </div>
   </template>
@@ -48,13 +48,33 @@
         '_dataChanged(data)'
       ],
       listeners: {
-        'link-clicked': '__linkClickedHandler'
+        'link-clicked': '__linkClickedHandler',
+        'child-attached': '__childAttached'
       },
 
       __selectedChanged: function (newSelected, oldSelected) {
-        if (newSelected == oldSelected) return;
-        const activeItem = Polymer.dom(this.root).querySelector(`[data-id="${newSelected}"]`);
-        console.log(activeItem);
+        if (newSelected !== oldSelected) {
+          this.refreshActiveChildren(newSelected);
+        };
+      },
+
+      /**
+       * Set and unset active properties on children
+       * @param {string} activeItem
+       */
+      refreshActiveChildren: function (activeItem) {
+        // find active items and unactivate them
+        const oldActiveItem = document.querySelector('[active]');
+        if (oldActiveItem) {
+          oldActiveItem.removeAttribute('active');
+        }
+        
+        // find the active item and activate it
+        const newActiveItem = document.querySelector(`#${activeItem}`);
+        console.log(newActiveItem);
+        if (newActiveItem) {
+          newActiveItem.setAttribute('active', true);
+        }
       },
 
       /**
@@ -118,9 +138,19 @@
        * asdf
        */
       __linkClickedHandler: function (e) {
-        this.set('selected', {});
-        this.set('selected', e.detail);
-        this.fire('selected', e.detail);
+        this.selected = e.detail.id;
+        this.fire('selected', e.detail.id);
+      },
+
+      /**
+       * When the children are attached find out if they
+       * have the same id as a selected and 
+       */
+      __childAttached: function (e) {
+        const childId = e.detail.id;
+        if (childId === this.selected) {
+          this.refreshActiveChildren(this.selected);
+        }
       },
 
     });
