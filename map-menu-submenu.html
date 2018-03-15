@@ -29,7 +29,7 @@
         margin-top: .4em;
       }
     </style>
-    <map-menu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
+    <map-menu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
     <iron-collapse id="container">
       <div id="line"></div>
       <slot id="slot"></slot>
@@ -39,6 +39,9 @@
     Polymer({
       is: 'map-menu-submenu',
       properties: {
+        id: {
+          type: String
+        },
         title: {
           type: String
         },
@@ -61,9 +64,16 @@
           value: false
         }
       },
+
       observers: [
         '_openChanged(opened)',
       ],
+
+      listeners: {
+        'child-deactivated': '__childDeactivated',
+        'child-activated': '__childActivated'
+      },
+
       _openChanged: function (opened) {
         var target = this.$.container;
         if (opened) target.show();
@@ -74,16 +84,8 @@
           this.opened = !this.opened;
         }
       },
+
       ready: function () {
-        this._observer =
-        Polymer.dom(this.$.slot).observeNodes(info => {
-          var submenus = info.addedNodes.filter(item => item.nodeName === 'map-menu-SUBMENU');
-          if (this.expandChildren) {
-            for (let menu of submenus) {
-              menu.setAttribute('opened', true);
-            }
-          }
-        });
       }
     });
   </script>

@@ -9,6 +9,11 @@
         display: block;
         --map-menu-item-height: 16px;
       }
+
+      :host[active] {
+        background: rgba(0, 0, 255, .1);
+      }
+
       iron-icon {
         --iron-icon-height: var(--map-menu-item-height);
       }
@@ -39,10 +44,13 @@
         icon: {
           type: String,
           value: ''
-        }
+        },
       },
+
       _click: function () {
-        window.location.assign(this.url);
+        if (this.url) {
+          this.fire('link-clicked', { url: this.url });
+        }
       }
     });
   </script>
