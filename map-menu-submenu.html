@@ -8,14 +8,17 @@
       :host {
         display: block;
       }
-      :host([collapsable]) > map-menu-header {
+
+      :host([collapsable])>map-menu-header {
         cursor: pointer;
         display: block;
       }
+
       #container {
         padding: 1em;
         position: relative;
       }
+
       #line {
         display: block;
         position: absolute;
@@ -23,13 +26,15 @@
         top: 0;
         left: .8em;
         width: 1px;
-        background: rgba(0,0,0, .2);
+        background: rgba(0, 0, 0, .2);
       }
+
       #container ::slotted(map-menu-item) {
         margin-top: .4em;
       }
     </style>
-    <map-menu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
+    <map-menu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]"
+      opened="[[opened]]" url="[[url]]"></map-menu-header>
     <iron-collapse id="container">
       <div id="line"></div>
       <slot id="slot"></slot>
@@ -71,7 +76,8 @@
 
       listeners: {
         'child-deactivated': '__childDeactivated',
-        'child-activated': '__childActivated'
+        'child-activated': '__childActivated',
+        'active-item': '__activeChanged',
       },
 
       _openChanged: function (opened) {
@@ -83,6 +89,10 @@
         if (this.collapsable) {
           this.opened = !this.opened;
         }
+      },
+
+      __activeChanged: function (e) {
+          this.opened = true;
       },
 
       ready: function () {

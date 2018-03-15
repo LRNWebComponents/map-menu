@@ -103,6 +103,11 @@
           type: String,
           reflectToAttribute: true,
         },
+        active: {
+          type: Boolean,
+          value: false,
+          observer: '__activeChanged',
+        },
       },
 
       __titleRole: function () {
@@ -122,7 +127,14 @@
 
       attached: function () {
         this.fire('child-attached', { id: this.id });
-      }
+      },
+
+      __activeChanged: function (active, oldActive) {
+        if (active === oldActive) return;
+        if (active === true) {
+          this.fire('active-item', { id: this.id });
+        }
+      },
     });
   </script>
 </dom-module>

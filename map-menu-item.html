@@ -51,7 +51,8 @@
         },
         active: {
           type: Boolean,
-          value: false
+          value: false,
+          observer: '__activeChanged',
         }
       },
 
@@ -63,7 +64,14 @@
 
       attached: function () {
         this.fire('child-attached', { id: this.id });
-      }
+      },
+
+      __activeChanged: function (active, oldActive) {
+        if (active === oldActive) return;
+        if (active === true) {
+          this.fire('active-item', { id: this.id });
+        }
+      },
     });
   </script>
 </dom-module>
