@@ -64,13 +64,13 @@
        */
       refreshActiveChildren: function (activeItem) {
         // find active items and unactivate them
-        const oldActiveItem = document.querySelector('[active]');
+        const oldActiveItem = this.$$('[active]');
         if (oldActiveItem) {
           oldActiveItem.removeAttribute('active');
         }
         
         // find the active item and activate it
-        const newActiveItem = document.querySelector(`#${activeItem}`);
+        const newActiveItem = this.$$(`#${activeItem}`);
         console.log(newActiveItem);
         if (newActiveItem) {
           newActiveItem.setAttribute('active', true);
