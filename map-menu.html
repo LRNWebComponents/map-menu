@@ -69,9 +69,11 @@
           oldActiveItem.removeAttribute('active');
         }
         
-        const newActiveItem = this.querySelector(`#${activeItem}`);
-        if (newActiveItem) {
-          newActiveItem.setAttribute('active', true);
+        if (activeItem && activeItem !== '') {
+          const newActiveItem = this.querySelector(`#${activeItem}`);
+          if (newActiveItem) {
+            newActiveItem.setAttribute('active', true);
+          }
         }
       },
 
