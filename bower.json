@@ -2,7 +2,7 @@
   "name": "map-menu",
   "description": "A LRN element",
   "main": "map-menu.html",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "polymer": "Polymer/polymer#^1",
     "lrndesign-avatar": "LRNWebComponents/lrndesign-avatar#^1.0.1",
