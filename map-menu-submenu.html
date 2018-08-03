@@ -77,7 +77,8 @@
         'child-deactivated': '__childDeactivated',
         'child-activated': '__childActivated',
         'active-item': '__activeChanged',
-        'toggle-header': '__toggleHeader'
+        'toggle-header': '__toggleHeader',
+        'link-clicked': '_headerClickHandler'
       },
 
       _openChanged: function (opened) {
@@ -87,6 +88,9 @@
       },
 
       _headerClickHandler: function (e) {
+        if (!this.opened) {
+          this.opened = !this.opened
+        }
       },
 
       __toggleHeader: function (e) {
