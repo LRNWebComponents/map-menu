@@ -230,14 +230,16 @@
        * Move the highlight widget over active element
        */
       __updateActiveIndicator: function (element) {
-        const activeIndicator = this.$.activeIndicator
-        const left = element.offsetLeft
-        const bottom = element.offsetBottom
-        const top = element.offsetTop
-        const width = element.offsetWidth
-        const height = element.offsetHeight
-
-        activeIndicator.setAttribute('style', `width:${width}px;height:${height}px;top:${top}px;left:${left}px`)
+        // run it through to set time just to let stuff set up
+        setTimeout(() => {
+          const activeIndicator = this.$.activeIndicator
+          const left = element.offsetLeft
+          const bottom = element.offsetBottom
+          const top = element.offsetTop
+          const width = element.offsetWidth
+          const height = element.offsetHeight
+          activeIndicator.setAttribute('style', `width:${width}px;height:${height}px;top:${top}px;left:${left}px`)
+        }, 100)
       },
 
     });
