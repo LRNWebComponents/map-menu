@@ -33,8 +33,7 @@
         margin-top: .4em;
       }
     </style>
-    <map-menu-header on-tap="_headerClickHandler" avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]"
-      opened="[[opened]]" url="[[url]]"></map-menu-header>
+    <map-menu-header avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
     <iron-collapse id="container">
       <div id="line"></div>
       <slot id="slot"></slot>
@@ -78,6 +77,7 @@
         'child-deactivated': '__childDeactivated',
         'child-activated': '__childActivated',
         'active-item': '__activeChanged',
+        'toggle-header': '__toggleHeader'
       },
 
       _openChanged: function (opened) {
@@ -85,18 +85,19 @@
         if (opened) target.show();
         if (!opened) target.hide();
       },
+
       _headerClickHandler: function (e) {
-        if (this.collapsable) {
-          this.opened = !this.opened;
-        }
+      },
+
+      __toggleHeader: function (e) {
+        // catch the event and end propagation
+        e.stopPropagation()
+        this.opened = !this.opened
       },
 
       __activeChanged: function (e) {
-          this.opened = true;
       },
 
-      ready: function () {
-      }
     });
   </script>
 </dom-module>

@@ -70,10 +70,10 @@
       </div>
       <div id="right">
         <template is="dom-if" if="[[!opened]]">
-          <iron-icon icon="arrow-drop-down"></iron-icon>
+          <iron-icon id="toggle" icon="arrow-drop-down" aria-role="button" aria-label="expand menu" tabindex="0"></iron-icon>
         </template>
         <template is="dom-if" if="[[opened]]">
-          <iron-icon icon="arrow-drop-up"></iron-icon>
+          <iron-icon id="toggle" icon="arrow-drop-up" aria-role="button" aria-label="collapse menu" tabindex="0"></iron-icon>
         </template>
       </div>
     </div>
@@ -110,6 +110,11 @@
         },
       },
 
+      listeners: {
+        'tap': '__tap',
+        'keypress': '__keypress'
+      },
+
       __titleRole: function () {
         if (this.url) {
           return 'link';
@@ -119,7 +124,7 @@
         }
       },
 
-      __linkClickHandler: function () {
+      __linkClickHandler: function (e) {
         if (this.id) {
           this.fire('link-clicked', { id: this.id });
         }
@@ -135,6 +140,29 @@
           this.fire('active-item', { id: this.id });
         }
       },
+
+      __tap: function (e) {
+        // send to toggle event
+        this.__toggleEventHandler(e)
+      },
+
+      __keypress: function (e) {
+        // send to toggle event
+        if (e.code === 'Enter') {
+          this.__toggleEventHandler(e)
+        }
+      },
+
+      __toggleEventHandler: function (e) {
+        if (typeof e.target !== 'undefined') {
+          if (typeof e.target.id !== 'undefined') {
+            if (e.target.id === 'toggle') {
+              this.fire('toggle-header')
+            }
+          }
+        }
+      }
+
     });
   </script>
 </dom-module>

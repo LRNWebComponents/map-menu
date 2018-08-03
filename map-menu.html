@@ -65,15 +65,16 @@
       refreshActiveChildren: function (activeItem) {
         // find active items and unactivate them
         const oldActiveItem = this.querySelector('[active]');
-        if (oldActiveItem) {
-          oldActiveItem.removeAttribute('active');
-        }
         
         if (activeItem && activeItem !== '') {
           const newActiveItem = this.querySelector(`#${activeItem}`);
           if (newActiveItem) {
             newActiveItem.setAttribute('active', true);
           }
+        }
+
+        if (oldActiveItem) {
+          oldActiveItem.removeAttribute('active');
         }
       },
 
