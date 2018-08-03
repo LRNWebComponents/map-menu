@@ -7,11 +7,12 @@
   <template>
     <style>
       :host {
+        --map-menu-active-color: rgba(0,0,0, .1);
         display: block;
       }
 
       :host[active] {
-        background: rgba(0, 0, 255, .1);
+        background: var(--map-menu-active-color);
       }
 
       #container {

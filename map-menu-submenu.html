@@ -19,23 +19,12 @@
         position: relative;
       }
 
-      #line {
-        display: block;
-        position: absolute;
-        height: 100%;
-        top: 0;
-        left: .8em;
-        width: 1px;
-        background: rgba(0, 0, 0, .2);
-      }
-
       #container ::slotted(map-menu-item) {
         margin-top: .4em;
       }
     </style>
     <map-menu-header avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
     <iron-collapse id="container">
-      <div id="line"></div>
       <slot id="slot"></slot>
     </iron-collapse>
   </template>
@@ -100,6 +89,7 @@
       },
 
       __activeChanged: function (e) {
+        this.opened = true
       },
 
     });
