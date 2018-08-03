@@ -6,12 +6,27 @@
   <template>
     <style>
       :host {
+        --map-menu-active-color: rgba(0,0,0, .1);
         display: block;
         overflow-y: scroll;
+        position: relative;
       }
+
+      #activeIndicator {
+        background: var(--map-menu-active-color);
+        transition: all .3s ease-in-out;
+        position: absolute
+      }
+
+      /* turn default active color if indicator is on */
+      :host[active-indicator] map-menu-builder {
+        --map-menu-active-color: transparent;
+      }
+
     </style>
     <div id="itemslist">
       <map-menu-container>
+        <div id="activeIndicator"></div>
         <map-menu-builder id="builder" items="[[items]]"></map-menu-builder>
       </map-menu-container>
     </div>
@@ -49,6 +64,13 @@
         autoScroll: {
           type: Boolean,
           value: false
+        },
+        /**
+         * Show active indicator animation
+         */
+         activeIndicator: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -79,6 +101,10 @@
           if (newActiveItem) {
             // set the new active attribute to the item
             newActiveItem.setAttribute('active', true);
+            // move the highlight thingy
+            if (this.activeIndicator) {
+              this.__updateActiveIndicator(newActiveItem)
+            }
             // if auto scroll enabled then scroll element into view
             if (this.autoScroll) {
               // console.log(newActiveItem)
@@ -198,7 +224,21 @@
         } else {
           return this.__getScrollParent(node.parentNode);
         }
-      }
+      },
+
+      /**
+       * Move the highlight widget over active element
+       */
+      __updateActiveIndicator: function (element) {
+        const activeIndicator = this.$.activeIndicator
+        const left = element.offsetLeft
+        const bottom = element.offsetBottom
+        const top = element.offsetTop
+        const width = element.offsetWidth
+        const height = element.offsetHeight
+
+        activeIndicator.setAttribute('style', `width:${width}px;height:${height}px;top:${top}px;left:${left}px`)
+      },
 
     });
   </script>
