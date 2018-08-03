@@ -7,6 +7,7 @@
     <style>
       :host {
         display: block;
+        overflow-y: scroll;
       }
     </style>
     <div id="itemslist">
@@ -41,6 +42,13 @@
           type: String,
           notify: true,
           observer: '__selectedChanged'
+        },
+        /**
+         * Auto scroll an active element if not in view
+         */
+        autoScroll: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -65,11 +73,20 @@
       refreshActiveChildren: function (activeItem) {
         // find active items and unactivate them
         const oldActiveItem = this.querySelector('[active]');
-        
+
         if (activeItem && activeItem !== '') {
           const newActiveItem = this.querySelector(`#${activeItem}`);
           if (newActiveItem) {
+            // set the new active attribute to the item
             newActiveItem.setAttribute('active', true);
+            // if auto scroll enabled then scroll element into view
+            if (this.autoScroll) {
+              // console.log(newActiveItem)
+              const isInView = this.__isInViewport(newActiveItem)
+              if (!isInView) {
+                newActiveItem.scrollIntoView(true)
+              }
+            }
           }
         }
 
@@ -153,6 +170,35 @@
           this.refreshActiveChildren(this.selected);
         }
       },
+
+      /**
+       * Find out if
+       */
+      __isInViewport: function (element) {
+        const scrollParent = this.__getScrollParent(element)
+        if (!scrollParent) return false
+
+        var elementTop = element.offsetTop;
+        var elementBottom = elementTop + element.offsetHeight;
+        var viewportTop = scrollParent.offsetTop;
+        var viewportBottom = viewportTop + scrollParent.offsetHeight;
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+      },
+
+      /**
+       * Get scroll parent
+       */
+      __getScrollParent: function (node) {
+        if (node == null) {
+          return null;
+        }
+
+        if (node.scrollHeight > node.clientHeight) {
+          return node;
+        } else {
+          return this.__getScrollParent(node.parentNode);
+        }
+      }
 
     });
   </script>
