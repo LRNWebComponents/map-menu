@@ -79,7 +79,8 @@
       ],
       listeners: {
         'link-clicked': '__linkClickedHandler',
-        'child-attached': '__childAttached'
+        'child-attached': '__childAttached',
+        'toggle-updated': '__toggleUpdated'
       },
 
       __selectedChanged: function (newSelected, oldSelected) {
@@ -91,8 +92,9 @@
       /**
        * Set and unset active properties on children
        * @param {string} activeItem
+       * @param {number} timeoutTime
        */
-      refreshActiveChildren: function (activeItem) {
+      refreshActiveChildren: function (activeItem, timeoutTime = 100) {
         // find active items and unactivate them
         const oldActiveItem = this.querySelector('[active]');
 
@@ -103,7 +105,7 @@
             newActiveItem.setAttribute('active', true);
             // move the highlight thingy
             if (this.activeIndicator) {
-              this.__updateActiveIndicator(newActiveItem)
+              this.__updateActiveIndicator(newActiveItem, timeoutTime)
             }
             // if auto scroll enabled then scroll element into view
             if (this.autoScroll) {
@@ -198,6 +200,15 @@
       },
 
       /**
+       * When a user clicks the toggle button to collapse or
+       * expand a submenu, this event gets triggered after
+       * the animation has been triggered
+       */
+       __toggleUpdated: function (e) {
+         this.refreshActiveChildren(this.selected, 300)
+       },
+
+      /**
        * Find out if
        */
       __isInViewport: function (element) {
@@ -229,18 +240,44 @@
       /**
        * Move the highlight widget over active element
        */
-      __updateActiveIndicator: function (element) {
+      __updateActiveIndicator: function (element, timeoutTime = 100) {
         // run it through to set time just to let stuff set up
         setTimeout(() => {
           const activeIndicator = this.$.activeIndicator
+          const elementIsHidden = this.__parentsHidden(element)
           const left = element.offsetLeft
           const bottom = element.offsetBottom
           const top = element.offsetTop
           const width = element.offsetWidth
-          const height = element.offsetHeight
+          // if the element is hidden the set the indicator height to zero to make it disapear
+          const height = (!elementIsHidden) ? element.offsetHeight : 0
+          // if the height is zero then make the timeoutTime faster
+          timeoutTime = (height > 0) ? timeoutTime : 10
           activeIndicator.setAttribute('style', `width:${width}px;height:${height}px;top:${top}px;left:${left}px`)
-        }, 100)
+        }, timeoutTime)
       },
+
+      /**
+       * Find out if any parents of the item are collapsed
+       */
+      __parentsHidden: function (node) {
+        // get the parent node
+        const parent = node.parentNode
+        // bail if we have no node to work with
+        if (parent == null) return null
+        // if we found a submenu check if it is hidden
+        if (parent.tagName === 'MAP-MENU-SUBMENU') {
+          // if open is set to false then we have
+          // found a hidden parent
+          if (!parent.opened) return true
+        }
+        // wrap up and exit if we came all the way back to map-menu
+        if (parent.tagName === 'MAP-MENU') return false
+        // if we got all the way here then we need recursively run this
+        // against the parent node
+        return this.__parentsHidden(parent)
+      },
+
 
     });
   </script>

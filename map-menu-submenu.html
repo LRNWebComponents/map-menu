@@ -85,6 +85,7 @@
         // catch the event and end propagation
         e.stopPropagation()
         this.opened = !this.opened
+        this.fire('toggle-updated')
       },
 
       __activeChanged: function (e) {
