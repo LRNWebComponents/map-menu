@@ -17,13 +17,18 @@
       iron-icon {
         --iron-icon-height: var(--map-menu-item-height);
       }
+
+      #title {
+        font-size: .9em;
+        text-transform: none;
+      }
     </style>
-    <template is="dom-if" if="[[icon]]">
       <paper-button id="wrapper" href$="[[url]]" role="link" noink on-tap="_click">
-        <iron-icon icon="[[icon]]"></iron-icon>
+        <template is="dom-if" if="[[__hasIcon(icon)]]">
+          <iron-icon icon="[[icon]]"></iron-icon>
+        </template>
         <span id="title">[[title]]</span>
       </paper-button>
-    </template>
   </template>
   <script>
     Polymer({
@@ -43,7 +48,6 @@
         },
         icon: {
           type: String,
-          value: ''
         },
         id: {
           type: String,
@@ -69,6 +73,10 @@
         if (active === true) {
           this.fire('active-item', { id: this.id });
         }
+      },
+
+      __hasIcon: function (icon) {
+        return (icon || icon === '') ? true : false
       },
     });
   </script>

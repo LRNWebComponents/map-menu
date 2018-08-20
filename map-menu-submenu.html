@@ -22,7 +22,7 @@
         margin-top: .4em;
       }
     </style>
-    <map-menu-header avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]"></map-menu-header>
+    <map-menu-header avatar-label="[[avatarLabel]]" id="[[id]]" title="[[title]]" label="[[label]]" opened="[[opened]]" url="[[url]]" icon="[[icon]]"></map-menu-header>
     <iron-collapse id="container">
       <slot id="slot"></slot>
     </iron-collapse>
@@ -43,6 +43,9 @@
         label: {
           type: String
         },
+        icon: {
+          type: String
+        },
         opened: {
           type: Boolean,
           value: false
@@ -54,7 +57,7 @@
         expandChildren: {
           type: Boolean,
           value: false
-        }
+        },
       },
 
       observers: [
