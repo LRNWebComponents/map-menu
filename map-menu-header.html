@@ -19,7 +19,7 @@
         align-items: center;
       }
 
-      #icon {
+      #avatarLabel {
         margin-right: 10px;
       }
 
@@ -55,11 +55,22 @@
       #right iron-icon {
         color: gray;
       }
+
+      /* @todo this is a hack */
+      #icon iron-icon {
+        --iron-icon-height: 16px;
+        transform: translateX(10px);
+      }
     </style>
     <div id="container">
       <template is="dom-if" if="[[avatarLabel]]">
-        <div id="icon">
+        <div id="avatarLabel">
           <lrndesign-avatar label="[[avatarLabel]]"></lrndesign-avatar>
+        </div>
+      </template>
+      <template is="dom-if" if="[[icon]]">
+        <div id="icon">
+          <iron-icon icon="[[icon]]"></iron-icon>
         </div>
       </template>
       <div id="center">
@@ -102,6 +113,9 @@
         id: {
           type: String,
           reflectToAttribute: true,
+        },
+        icon: {
+          type: String,
         },
         active: {
           type: Boolean,

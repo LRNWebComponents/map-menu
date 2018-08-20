@@ -109,10 +109,9 @@
             }
             // if auto scroll enabled then scroll element into view
             if (this.autoScroll) {
-              // console.log(newActiveItem)
               const isInView = this.__isInViewport(newActiveItem)
               if (!isInView) {
-                newActiveItem.scrollIntoView(true)
+                newActiveItem.scrollIntoView({block: "nearest", behavior: "smooth"})
               }
             }
           }
