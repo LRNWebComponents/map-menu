@@ -9,7 +9,7 @@
     "smooth-scroll": "LRNWebComponents/smooth-scroll#^1.0.3",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "lit-html": "Polymer/lit-html#^0.6.0",
-    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^1",
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
