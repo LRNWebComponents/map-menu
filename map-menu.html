@@ -1,4 +1,5 @@
-<link rel="import" href="imports.html">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../smooth-scroll/smooth-scroll.html">
 <link rel="import" href="map-menu-container.html">
 <link rel="import" href="map-menu-builder.html">
 
@@ -10,6 +11,7 @@
         display: block;
         overflow-y: scroll;
         position: relative;
+        height: 100%;
       }
 
       #activeIndicator {
@@ -18,11 +20,15 @@
         position: absolute
       }
 
-      /* turn default active color if indicator is on */
-      :host[active-indicator] map-menu-builder {
-        --map-menu-active-color: transparent;
+      map-menu-container {
+        padding: 2em;
+        @apply(--map-menu-container)
       }
 
+      /* turn default active color if indicator is on */
+      :host[active-indicator] map-menu-builder { 
+        --map-menu-active-color: transparent;
+      }
     </style>
     <div id="itemslist">
       <map-menu-container>
@@ -30,6 +36,7 @@
         <map-menu-builder id="builder" items="[[items]]"></map-menu-builder>
       </map-menu-container>
     </div>
+    <smooth-scroll id="smoothScroll"></smooth-scroll>
   </template>
 
   <script>
@@ -109,10 +116,11 @@
             }
             // if auto scroll enabled then scroll element into view
             if (this.autoScroll) {
-              const isInView = this.__isInViewport(newActiveItem)
-              if (!isInView) {
-                newActiveItem.scrollIntoView({block: "nearest", behavior: "smooth"})
-              }
+              // kick off smooth scroll
+              this.$.smoothScroll.scroll(newActiveItem, {
+                duration: 300,
+                scrollElement: this
+              })
             }
           }
         }
@@ -276,7 +284,6 @@
         // against the parent node
         return this.__parentsHidden(parent)
       },
-
 
     });
   </script>
